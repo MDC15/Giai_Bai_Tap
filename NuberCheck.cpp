@@ -2,31 +2,32 @@
 #include <math.h>
 using namespace std;
 
-bool isPrime(int n) {
-    if(n < 2) {
+bool isPrime(int p) {
+    if(p < 2) {
         return false;
     }
-    for(int i = 2; i <= sqrt(n); i++) {
-        if(n % i == 0) {
+    for(int i = 2; i <= sqrt(p); i++) {
+        if(p % i == 0) {
             return false;
         }
     }
     return true;
 }
 
-bool isMersenne(int n) {
-    int m = log2(n + 1);
-    return isPrime(m) && (n == pow(2, m) - 1);
+bool isMersenne(int p) {
+    int m = log2(p + 1);
+    return isPrime(m) && (p == pow(2, m) - 1);
 }
 
 int main() {
-    int n;
-    cout << "\nNhap n = ";
-    cin >> n;
-    if(isMersenne(n)) {
-        cout << n << " la so Mersenne\n";
+    int p;
+    cout << "\nNhap so p = ";
+    cin >> p;
+    
+    if(isMersenne(p)) {
+        cout << p << " la so Mersenne.\n";
     } else {
-        cout << n << " khong phai la so Mersenne\n";
+        cout << p << " khong phai la so Mersenne.\n";
     }
     return 0;
 }
