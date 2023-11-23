@@ -46,7 +46,7 @@ void grade10(const char *path)
         if (sv.thcs4 == 10)
         {
             // In ra họ tên của sinh viên
-            std::cout << sv.ho << ", " << sv.ten << std::endl;
+            std::cout << sv.ho << " " << sv.ten << std::endl;
             count++;
         }
     }
