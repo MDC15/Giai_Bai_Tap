@@ -1,45 +1,73 @@
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <vector>
 
-void grade10(const char* path) {
-    std::ifstream file(path);
-    if (!file) {
-        std::cout << "Không thể mở tệp tin." << std::endl;
+// Định nghĩa cấu trúc cho sinh viên
+struct SinhVien
+{
+    int stt;
+    std::string ho;
+    std::string ten;
+    std::string ngaySinh;
+    int daiSo;
+    int thcs4;
+    int thcs1;
+};
+
+// Hàm kiểm tra điểm THCS4 bằng 10 và in ra họ tên của sinh viên
+void grade10(const char *path)
+{
+    std::ifstream inputFile(path);
+    if (!inputFile.is_open())
+    {
+        std::cout << "Khong mo duoc file dau vao." << std::endl;
         return;
     }
 
-    std::vector<std::string> students;
-
+    int count = 0;
     std::string line;
-    while (std::getline(file, line)) {
+
+    // Đọc từng dòng trong file đầu vào
+    while (std::getline(inputFile, line))
+    {
+        SinhVien sv;
+
+        // Sử dụng stringstream để đọc từng trường thông tin từ dòng
         std::istringstream iss(line);
-        std::string name, grade;
-        std::getline(iss, name, ',');
-        std::getline(iss, grade, ',');
-        if (grade == "10") {
-            students.push_back(name);
+        char comma;
+
+        iss >> sv.stt >> comma;
+        std::getline(iss, sv.ho, ',');
+        std::getline(iss, sv.ten, ',');
+        std::getline(iss, sv.ngaySinh, ',');
+        iss >> sv.daiSo >> comma >> sv.thcs4 >> comma >> sv.thcs1;
+
+        // Kiểm tra điểm THCS4 bằng 10
+        if (sv.thcs4 == 10)
+        {
+            // In ra họ tên của sinh viên
+            std::cout << sv.ho << ", " << sv.ten << std::endl;
+            count++;
         }
     }
 
-    file.close();
+    inputFile.close();
 
-    if (students.empty()) {
-        std::cout << "Không có sinh viên nào có điểm THCS4 là 10." << std::endl;
-        return;
+    // Kiểm tra nếu không có sinh viên nào có điểm THCS4 bằng 10
+    if (count == 0)
+    {
+        std::cout << "Khong co sinh vien nao co diem THCS4 bang 10." << std::endl;
     }
-
-    std::cout << "Các sinh viên có điểm THCS4 là 10:" << std::endl;
-    for (const std::string& student : students) {
-        std::cout << student << std::endl;
+    else
+    {
+        std::cout << "Da kiem tra xong file " << path << "." << std::endl;
     }
 }
 
-int main() {
-    const char* path = "1.csv";
-    grade10(path);
+int main()
+{
+    const char *filePath = "./1.csv";
+    grade10(filePath);
+
     return 0;
 }
-
