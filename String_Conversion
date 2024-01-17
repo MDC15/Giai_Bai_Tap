@@ -49,7 +49,7 @@ int main()
         string a, b;
         cin >> a >> b;
 
-        printf("Rsult: ");
+        printf("Result: ");
         if (check(a, b))
         {
             cout << "YES" << endl;
